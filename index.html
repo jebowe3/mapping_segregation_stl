@@ -189,13 +189,13 @@
   <script type="text/javascript">
 
     // Define bounding coordinates to prevent dragging too far from Black Hawk County
-    const southWest = L.latLng(38.427222, -90.547778),
-      northEast = L.latLng(38.827222, -89.947778),
+    const southWest = L.latLng(38.443222, -90.547778),
+      northEast = L.latLng(38.843222, -89.947778),
       bounds = L.latLngBounds(southWest, northEast);
 
     // Initialize the map
     const map = L.map('map')
-    .setView([38.627222,-90.247778], 12)
+    .setView([38.643222,-90.247778], 12)
     .setMinZoom(12)
     .setMaxZoom(18)
     .setMaxBounds(bounds);
