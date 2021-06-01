@@ -226,6 +226,7 @@
 
     const parcel = L.layerGroup();
     const petition = L.layerGroup();
+    const priv = L.layerGroup();
     const privR = L.layerGroup();
     const subdivision = L.layerGroup();
     const other = L.layerGroup();
@@ -241,6 +242,7 @@
     // add the layers to the map
     map.addLayer(parcel);
     map.addLayer(petition);
+    map.addLayer(priv);
     map.addLayer(privR);
     map.addLayer(subdivision);
     map.addLayer(other);
@@ -255,7 +257,8 @@
       "Dated Covenants": {
         "Parcel": parcel,
         "Petition": petition,
-        "Private Street": privR,
+        "Private Streets": priv,
+        "Private Streets With Restrictions": privR,
         "Subdivision": subdivision,
         "Other": other
       },
@@ -291,8 +294,8 @@
     function getColorRestrictive(d) {
       return d === 'par' ? 'blue' :
         d === 'pet' ? 'red' :
-        d === 'privR' ? 'purple':
-        d === 'priv' ? 'purple':
+        d === 'priv' ? '#54cc20':
+        d === 'privR' ? '#2d6e11':
         d === 'sub' ? 'orange' :
         d === null ? '#ff9966':
         'rgba(0,0,0,0.0)';
@@ -314,7 +317,8 @@
             "<b style='font-size:14px'>Type of Covenant</b>" +
             '<br>' + '<i style="background:' + getColorRestrictive('par') + '"></i> ' + 'Parcel' +
             '<br>' + '<i style="background:' + getColorRestrictive('pet') + '"></i> ' + 'Petition' +
-            '<br>' + '<i style="background:' + getColorRestrictive('privR') + '"></i> ' + 'Private Street' +
+            '<br>' + '<i style="background:' + getColorRestrictive('priv') + '"></i> ' + 'Private Streets' +
+            '<br>' + '<i style="background:' + getColorRestrictive('privR') + '"></i> ' + 'Private Streets With Restrictions' +
             '<br>' + '<i style="background:' + getColorRestrictive('sub') + '"></i> ' + 'Subdivision' +
             '<br>' + '<i style="background:' + getColorRestrictive(null) + '"></i> ' + 'Other' +
           "</div>" +
@@ -376,6 +380,7 @@
             fillOpacity: 0.35,
           };
         },
+/*
         // for each feature...
         onEachFeature: function(feature, layer) {
           // bind a popup window
@@ -396,7 +401,7 @@
             poc1900.resetStyle(e.target);
           });
         }
-
+*/
       });
 
       const poc1910 = L.geoJson(stl1910, {
@@ -411,6 +416,7 @@
             fillOpacity: 0.35,
           };
         },
+/*
         // for each feature...
         onEachFeature: function(feature, layer) {
           // bind a popup window
@@ -431,7 +437,7 @@
             poc1910.resetStyle(e.target);
           });
         }
-
+*/
       });
 
       const poc1920 = L.geoJson(stl1920, {
@@ -446,6 +452,7 @@
             fillOpacity: 0.35,
           };
         },
+/*
         // for each feature...
         onEachFeature: function(feature, layer) {
           // bind a popup window
@@ -466,7 +473,7 @@
             poc1920.resetStyle(e.target);
           });
         }
-
+*/
       });
 
       const poc1930 = L.geoJson(stl1930, {
@@ -481,6 +488,7 @@
             fillOpacity: 0.35,
           };
         },
+/*
         // for each feature...
         onEachFeature: function(feature, layer) {
           // bind a popup window
@@ -501,7 +509,7 @@
             poc1930.resetStyle(e.target);
           });
         }
-
+*/
       });
 
       const poc1940 = L.geoJson(stl1940, {
@@ -516,6 +524,7 @@
             fillOpacity: 0.35,
           };
         },
+/*
         // for each feature...
         onEachFeature: function(feature, layer) {
           // bind a popup window
@@ -536,7 +545,7 @@
             poc1940.resetStyle(e.target);
           });
         }
-
+*/
       });
 
       if (currentYear >= 1900 && currentYear < 1910) {
@@ -608,22 +617,24 @@
           let type = layer.feature.properties.cv;
 
           if (type == 'par') {
-            var restr = 'PARCEL';
+            var restr = 'Parcel';
           } else if (type == 'pet') {
-            var restr = 'PETITION';
-          } else if (type == 'priv' || type == 'privR') {
-            var restr = 'PRIVATE STREET';
+            var restr = 'Petition';
+          } else if (type == 'priv') {
+            var restr = 'Private Street';
+          } else if (type == 'privR') {
+            var restr = 'Private Street With Restrictions';
           } else if (type == 'sub') {
-            var restr = 'SUBDIVISION';
+            var restr = 'Subdivision';
           } else {
-            var restr = 'OTHER';
+            var restr = 'Other';
           };
 
           // bind a popup window
-          layer.bindPopup("<h2 style='font-size:14px'><b>" + layer.feature.properties.ad + "</b></h2><span class='br'></span><h3 style='font-size:12px'>Block: " + layer.feature.properties.blk + "<br>Subdivision: " + layer.feature.properties.sub +
-            "<br>Covenant Type: " + layer.feature.properties.cv + "<br>Record Number: " + layer.feature.properties.rec + "<br>Date Enforced: " + layer.feature.properties.day + "</h3>", {
+          layer.bindPopup("<h2 style='font-size:14px'><b>" + layer.feature.properties.ad + "</b></h2><span class='br'></span><h3 style='font-size:12px'>City Block: " + layer.feature.properties.blk + "<br>Legal: " + layer.feature.properties.sub +
+            "<br>Covenant Type: " + restr + "<br>Record Number: " + layer.feature.properties.rec + "<br>Date of Restriction: " + layer.feature.properties.day + "</h3>", {
               pane: 'myPane3'
-            });
+          });
 
           // change layer style on mouseover
           layer.on("mouseover", function(e) {
@@ -667,8 +678,20 @@
             };
           };
 
-          // if the covenant is a parcel
-          if (type == 'priv' || type == 'privR') {
+          // if the covenant is a private street
+          if (type == 'priv') {
+            if (year <= currentYear && year != 0000) {
+              priv.addLayer(layer); // add the layer to the layer group
+            } else {
+              priv.removeLayer(layer); // remove the layer from the layer group;
+            };
+            if (year == 0000) {
+              privRND.addLayer(layer);
+            };
+          };
+
+          // if the covenant is a private street with restrictions
+          if (type == 'privR') {
             if (year <= currentYear && year != 0000) {
               privR.addLayer(layer); // add the layer to the layer group
             } else {
@@ -834,8 +857,17 @@
           };
         };
 
-        // if the covenant is a parcel
-        if (type == 'priv' || type == 'privR') {
+        // if the covenant is a private street
+        if (type == 'priv') {
+          if (year <= currentYear && year != 0000) {
+            priv.addLayer(layer); // add the layer to the layer group
+          } else {
+            priv.removeLayer(layer); // remove the layer from the layer group;
+          };
+        };
+
+        // if the covenant is a private street with restrictions
+        if (type == 'privR') {
           if (year <= currentYear && year != 0000) {
             privR.addLayer(layer); // add the layer to the layer group
           } else {
