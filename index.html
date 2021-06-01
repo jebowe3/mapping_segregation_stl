@@ -254,7 +254,7 @@
     //map.addLayer(otherND); // None of these
 
     var groupedOverlays = {
-      "Dated Covenants": {
+      "Type of Restriction": {
         "Parcel": parcel,
         "Petition": petition,
         "Private Streets": priv,
@@ -262,13 +262,13 @@
         "Subdivision": subdivision,
         "Other": other
       },
-      "Undated Covenants": {
+      //"Undated Covenants": {
         //"Parcel": parcelND, // None of these
-        "Petition": petitionND,
-        "Private Street": privRND,
+        //"Petition": petitionND,
+        //"Private Street": privRND,
         //"Subdivision": subdivisionND, // None of these
         //"Other": otherND // None of these
-      },
+      //},
       "Census Demographics": {
         "Share Black": percBl,
       }
@@ -314,7 +314,7 @@
       // generate a label with a colored square for each
       div.innerHTML +=
           "<div class='column1' style='width: 50%; float: left;'>" +
-            "<b style='font-size:14px'>Type of Covenant</b>" +
+            "<b style='font-size:14px'>Restriction Type</b>" +
             '<br>' + '<i style="background:' + getColorRestrictive('par') + '"></i> ' + 'Parcel' +
             '<br>' + '<i style="background:' + getColorRestrictive('pet') + '"></i> ' + 'Petition' +
             '<br>' + '<i style="background:' + getColorRestrictive('priv') + '"></i> ' + 'Private Streets' +
