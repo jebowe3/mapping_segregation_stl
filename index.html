@@ -232,8 +232,8 @@
     const other = L.layerGroup();
 
     //const parcelND = L.layerGroup(); // None of these
-    const petitionND = L.layerGroup();
-    const privRND = L.layerGroup();
+    //const petitionND = L.layerGroup();
+    //const privRND = L.layerGroup();
     //const subdivisionND = L.layerGroup();  // None of these
     //const otherND = L.layerGroup();  // None of these
 
@@ -248,8 +248,8 @@
     map.addLayer(other);
 
     //map.addLayer(parcelND); // None of these
-    map.addLayer(petitionND);
-    map.addLayer(privRND);
+    //map.addLayer(petitionND);
+    //map.addLayer(privRND);
     //map.addLayer(subdivisionND); // None of these
     //map.addLayer(otherND); // None of these
 
@@ -257,10 +257,10 @@
       "Type of Restriction": {
         "Parcel": parcel,
         "Petition": petition,
-        "Private Streets": priv,
-        "Private Streets With Restrictions": privR,
+        "Private Street": priv,
+        "Private Street With Restrictions": privR,
         "Subdivision": subdivision,
-        //"Other": other
+        "Other": other
       },
       //"Undated Covenants": {
         //"Parcel": parcelND, // None of these
@@ -320,7 +320,7 @@
             '<br>' + '<i style="background:' + getColorRestrictive('priv') + '"></i> ' + 'Private Streets' +
             '<br>' + '<i style="background:' + getColorRestrictive('privR') + '"></i> ' + 'Private Streets With Restrictions' +
             '<br>' + '<i style="background:' + getColorRestrictive('sub') + '"></i> ' + 'Subdivision' +
-            //'<br>' + '<i style="background:' + getColorRestrictive(null) + '"></i> ' + 'Other' +
+            '<br>' + '<i style="background:' + getColorRestrictive(null) + '"></i> ' + 'Other' +
           "</div>" +
           "<div class='column2' style='margin-left: 55%;'>" +
             "<b style='font-size:14px'>Share Black</b>" +
@@ -365,7 +365,7 @@
       $.getJSON("data/STL_ED_1920.geojson"),
       $.getJSON("data/STL_ED_1930.geojson"),
       $.getJSON("data/STL_ED_1940.geojson"),
-      $.getJSON("data/stl_covs.json"),
+      $.getJSON("data/stl_covs_topo.json"),
     ).done(function(stl1900, stl1910, stl1920, stl1930, stl1940, restrictive) {
 
       const poc1900 = L.geoJson(stl1900, {
@@ -586,7 +586,7 @@
         percBl.removeLayer(poc1940);
       };
 
-      const restrictivePs = topojson.feature(restrictive[0], restrictive[0].objects.stl_covs);
+      const restrictivePs = topojson.feature(restrictive[0], restrictive[0].objects.stl_covs_topo);
       const restrictiveParcels = L.geoJson(restrictivePs, {
         // style the layer
         style: function(feature) {
