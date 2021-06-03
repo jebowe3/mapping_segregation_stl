@@ -164,7 +164,7 @@
   <!-- ui slider -->
   <div id='slider' class='range w300 round py6 border--gray-light px12 leaflet-control'>
     <!-- Use the first and last year of the time data as the min and max. Set the initial value as the first year. Set the steps at one year. -->
-    <input type="range" min="1879" max="1949" value="1879" step="1" class="slider" />
+    <input type="range" min="1870" max="1950" value="1870" step="1" class="slider" />
   </div>
   <!-- end slider -->
 
@@ -229,7 +229,7 @@
     const priv = L.layerGroup();
     const privR = L.layerGroup();
     const subdivision = L.layerGroup();
-    const other = L.layerGroup();
+    //const other = L.layerGroup();
 
     //const parcelND = L.layerGroup(); // None of these
     //const petitionND = L.layerGroup();
@@ -245,7 +245,7 @@
     map.addLayer(priv);
     map.addLayer(privR);
     map.addLayer(subdivision);
-    map.addLayer(other);
+    //map.addLayer(other);
 
     //map.addLayer(parcelND); // None of these
     //map.addLayer(petitionND);
@@ -260,7 +260,7 @@
         "Private Street": priv,
         "Private Street With Restrictions": privR,
         "Subdivision": subdivision,
-        "Other": other
+        //"Other": other
       },
       //"Undated Covenants": {
         //"Parcel": parcelND, // None of these
@@ -320,7 +320,7 @@
             '<br>' + '<i style="background:' + getColorRestrictive('priv') + '"></i> ' + 'Private Street' +
             '<br>' + '<i style="background:' + getColorRestrictive('privR') + '"></i> ' + 'Private Street With Restrictions' +
             '<br>' + '<i style="background:' + getColorRestrictive('sub') + '"></i> ' + 'Subdivision' +
-            '<br>' + '<i style="background:' + getColorRestrictive(null) + '"></i> ' + 'Other' +
+            //'<br>' + '<i style="background:' + getColorRestrictive(null) + '"></i> ' + 'Other' +
           "</div>" +
           "<div class='column2' style='margin-left: 55%;'>" +
             "<b style='font-size:14px'>Share Black</b>" +
@@ -572,7 +572,7 @@
         percBl.removeLayer(poc1910);
         percBl.removeLayer(poc1920);
         percBl.removeLayer(poc1940);
-      } else if (currentYear >= 1940 && currentYear < 1950) {
+      } else if (currentYear >= 1940 && currentYear < 1951) {
         percBl.addLayer(poc1940);
         percBl.removeLayer(poc1900);
         percBl.removeLayer(poc1910);
@@ -640,11 +640,11 @@
           layer.on("mouseover", function(e) {
             layer.setStyle({
               stroke: 0.25,
-              color: '#4169E1',
+              color: getColorRestrictive(feature.properties.cv),
               strokeOpacity: 1,
               weight: 0.25,
-              fillColor: '#4169E1',
-              fillOpacity: 0.5,
+              fillColor: getColorRestrictive(feature.properties.cv),
+              fillOpacity: 0.25,
             }).bringToFront();
             layer.openPopup();
           });
@@ -713,7 +713,7 @@
               subdivisionND.addLayer(layer);
             };
           };
-
+/*
           // if the covenant type is null
           if (type == null) {
             if (year <= currentYear && year != 0000) {
@@ -725,7 +725,7 @@
               otherND.addLayer(layer);
             };
           };
-
+*/
         }
       });
       // call functions defined below
@@ -811,7 +811,7 @@
         percBl.removeLayer(poc1910);
         percBl.removeLayer(poc1920);
         percBl.removeLayer(poc1940);
-      } else if (currentYear >= 1940 && currentYear < 1950) {
+      } else if (currentYear >= 1940 && currentYear < 1951) {
         percBl.addLayer(poc1940);
         percBl.removeLayer(poc1900);
         percBl.removeLayer(poc1910);
@@ -883,7 +883,7 @@
             subdivision.removeLayer(layer); // remove the layer from the layer group;
           };
         };
-
+/*
         // if the covenant type is null
         if (type == null) {
           if (year <= currentYear && year != 0000) {
@@ -892,7 +892,7 @@
             other.removeLayer(layer); // remove the layer from the layer group;
           };
         };
-
+*/
       });
 
     };
