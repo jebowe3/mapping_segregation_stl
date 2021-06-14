@@ -11,6 +11,8 @@
   <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
   <!-- Mapbox GL -->
   <!--<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />-->
+  <!-- for fullscreen button -->
+  <link rel="stylesheet" href="css/Control.FullScreen.css" />
   <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
 
   <style type="text/css">
@@ -185,6 +187,8 @@
   <!--<script src="js/leaflet-mapbox-gl.js"></script>-->
   <!-- topojson-client@3 for topojson files -->
   <script src="https://unpkg.com/topojson-client@3"></script>
+  <!-- for fullscreen button -->
+  <script src="js/Control.FullScreen.js"></script>
 
   <script type="text/javascript">
 
@@ -194,7 +198,12 @@
       bounds = L.latLngBounds(southWest, northEast);
 
     // Initialize the map
-    const map = L.map('map')
+    const map = L.map('map', {
+      fullscreenControl: true,
+      fullscreenControlOptions: {
+        position: 'topleft'
+      }
+    })
     .setView([38.643222,-90.247778], 12)
     .setMinZoom(12)
     .setMaxZoom(18)
@@ -254,7 +263,7 @@
     //map.addLayer(otherND); // None of these
 
     var groupedOverlays = {
-      "Type of Restriction": {
+      "<b>Type of Restriction</b>": {
         "Parcel": parcel,
         "Petition": petition,
         "Private Street": priv,
@@ -269,7 +278,7 @@
         //"Subdivision": subdivisionND, // None of these
         //"Other": otherND // None of these
       //},
-      "Census Demographics": {
+      "<b>Census Demographics</b>": {
         "Share Black": percBl,
       }
     };
